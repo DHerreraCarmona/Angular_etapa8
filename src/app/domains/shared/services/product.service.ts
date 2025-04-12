@@ -1,52 +1,3 @@
-// import { HttpClient } from '@angular/common/http';
-// import { inject, Injectable } from '@angular/core';
-// import { Product } from '../models/product.model';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class ProductService {
-//   private http = inject(HttpClient);
-
-//   constructor() { }
-
-//   getProducts(){
-//     return this.http.get<Product[]>(`https://api.escuelajs.co/api/v1/products`);
-//   } 
-// }
-
-
-
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable, inject } from '@angular/core';
-// import { map } from 'rxjs/operators';
-// import { Product } from '../models/product.model';
-
-// @Injectable({
-//   providedIn: 'root' 
-// })
-// export class ProductService {
-//   private http = inject(HttpClient);
-
-//   constructor() { }
-
-//   getProducts(){
-//     return this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products').pipe(
-//       map(products =>
-//         products.map(product => ({
-//           ...product,
-//           images: product.images.map(() =>
-//             'https://picsum.photos/640/640?r=' + Math.random()
-//           )
-//         }))
-//       )
-//     );
-//   }
-// }
-
-
-
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -60,17 +11,25 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts(){
-    return this.http.get<Product[]>('https://api.escuelajs.co/api/v1/products').pipe(
-      map(products => 
+  getProducts(category_id?:string){
+    const url = new URL(`https://api.escuelajs.co/api/v1/products`)
+    if(category_id){
+      url.searchParams.set('categoryId',category_id)
+    }
+    return this.http.get<Product[]>(url.toString()).pipe(
+      map(products =>
         products.map(product => ({
           ...product,
-          images: product.images.map(image => 
+          images: product.images.map(image =>
             this.cleanAndParseImageUrl(image)
           )
         }))
       )
     );
+  }
+
+  getOne(id:string){
+    return this.http.get<Product>('https://api.escuelajs.co/api/v1/products/'+id)
   }
 
   private cleanAndParseImageUrl(image: string): string {

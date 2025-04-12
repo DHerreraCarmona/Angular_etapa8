@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
+
 import { Component,inject,Input,signal, SimpleChanges } from '@angular/core';
 import { Product } from '../../models/product.model';
-import { RouterLinkWithHref } from '@angular/router';
+import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule,RouterLinkWithHref],
+  imports: [RouterLinkWithHref, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -15,7 +15,7 @@ export class HeaderComponent {
   private cartService = inject(CartService);
   cart = this.cartService.cart;
   total = this.cartService.total;
-  
+
 
   toogleSideMenu(){
     this.hideSideMenu.update(prevState => !prevState);
