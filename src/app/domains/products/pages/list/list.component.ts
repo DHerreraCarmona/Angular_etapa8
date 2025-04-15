@@ -24,6 +24,8 @@ export default class ListComponent {
   private categoryService = inject(CategoryService);
   @Input() category_id?: string;
 
+  showMenu = false;
+
   ngOnInit(changes:SimpleChanges){
     this.getCategories();
   }
@@ -54,5 +56,9 @@ export default class ListComponent {
       },
       error:()=>{}
     })
+  }
+
+  toggleMenu(){
+    this.showMenu = !this.showMenu
   }
 }

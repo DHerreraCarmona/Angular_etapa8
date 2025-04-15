@@ -1,0 +1,42 @@
+.list--grid{
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu{
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: all ease-out .5s;
+  width: 100rem;
+  &.active{
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 40em) and (max-width: 64em) {
+  .list--grid{
+    display: grid;
+    grid-template-columns:  repeat(4,1fr);
+    grid-gap: 15px;
+  }
+
+  .side-menu{
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: all ease-out .5s;
+    width: 10rem;
+    &.active{
+      display: flex;
+    }
+}
+
+@media screen and (min-width: 64.9em) {
+  .list--grid{
+    display: grid;
+    grid-template-columns:  repeat(5,1fr);
+    width: 10rem;
+    grid-gap: 15px;
+  }
+}
